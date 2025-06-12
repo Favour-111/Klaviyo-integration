@@ -10,8 +10,8 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-const klaviyoAPIKey = "pk_b381c624d15555d6efbabda49124c4c281"; // Private API Key
-const listId = "SPSgYF"; // List ID
+const klaviyoAPIKey = process.env.klaviyoAPIKey; // Private API Key
+const listId = process.env.listId; // List ID
 
 // Step 1: Create or update profile
 async function createOrUpdateProfile(email, phone) {
