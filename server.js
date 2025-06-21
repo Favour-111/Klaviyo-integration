@@ -1,6 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
@@ -12,6 +14,8 @@ app.use(bodyParser.json());
 
 const klaviyoAPIKey = process.env.klaviyoAPIKey; // Private API Key
 const listId = process.env.listId; // List ID
+
+console.log(klaviyoAPIKey);
 
 // Step 1: Create or update profile
 async function createOrUpdateProfile(email, phone) {
