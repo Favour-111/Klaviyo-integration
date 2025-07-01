@@ -120,6 +120,31 @@ app.post("/subscribe", async (req, res) => {
       .json({ message: "Failed to subscribe", error: err.message });
   }
 });
+app.get("/test-auth", async (req, res) => {
+  try {
+    const response = await fetch("https://a.klaviyo.com/api/lists/", {
+      method: "GET",
+      headers: {
+        Authorization: `Klaviyo-API-Key ${klaviyoAPIKey}`,
+        revision: "2023-10-15",
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res
+        .status(response.status)
+        .json({ message: "Invalid API Key or error occurred", error: data });
+    }
+
+    res.json({ message: "API key is valid!", lists: data.data });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error verifying key", error: error.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
